@@ -13,10 +13,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using blazorHramPosts.Areas.Identity;
 using blazorHramPosts.Data;
 using blazorHramPosts.Models;
 using blazorHramPosts.Services;
+using blazorHramPosts.Areas.Identity;
 
 namespace blazorHramPosts
 {
@@ -38,10 +38,10 @@ namespace blazorHramPosts
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<user, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders().AddDefaultUI();
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
+            services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<user>>();
             services.AddSingleton<WeatherForecastService>();
             services.AddAuthentication()
                 .AddGoogle(options =>
