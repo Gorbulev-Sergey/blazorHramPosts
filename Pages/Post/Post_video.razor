@@ -1,0 +1,91 @@
+﻿@using blazorHramPosts.Models
+@inject NavigationManager MyNavigationManager
+
+<div class="card mb-4">
+    <!--Верхняя часть публикации-->
+    <div class="row no-gutters">
+        <!--Картинка публикации-->
+        <div class="col-lg d-flex flex-column">
+            <div class="card-body mb-auto">
+                <!--Название публикаци-->
+                <h5 class="card-title">@post.title</h5>
+                <!--Сокращённое содержимое-->
+                @((MarkupString)post.description)<br />
+                <small class="text-muted">Опубликовано @post.updated.ToShortDateString()</small>
+            </div>
+            <div class="p-3 d-flex justify-content-between">
+                <div>
+                    <!--Кнопки комментарии, нравится, поделиться-->
+                    <AuthorizeView>
+                        <Authorized>
+                            <form class="d-inline-block" asp-controller="Home" asp-action="AddLike" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#like_@post.ID">
+                                <button id="like_@post.ID" class="btn btn-light align-self-center" type="submit">
+                                    <i class="far fa-heart text-danger font-weight-bold"></i>
+                                </button>
+                                <input name="postID" value="@post.ID" hidden />
+                            </form>
+                        </Authorized>
+                    </AuthorizeView>
+                    <button class="btn btn-light align-self-center" onclick="$(this).parent().parent().parent().parent().next().collapse('toggle')"><i class="far fa-comment-alt"></i></button>
+
+                    <div class="dropup float-right ml-1">
+                        <button class="btn btn-light align-self-center" data-toggle="dropdown"><i class="fas fa-share-alt"></i></button>
+                        <div class="dropdown-menu dropdown-menu-right mb-2 p-0 border-0">
+                            <div class="btn-group">
+                                <a class="btn btn-light" href="https://vk.com/share.php?url=@MyNavigationManager.Uri" target="_blank">
+                                    <i class="fab fa-vk" style="font-size:large"></i>
+                                </a>
+                                <a class="btn btn-light" href="https://connect.ok.ru/offer?url=@MyNavigationManager.Uri" target="_blank">
+                                    <i class="fab fa-odnoklassniki" style="font-size:large"></i>
+                                </a>
+                                <a class="btn btn-light" href="https://twitter.com/intent/tweet?&url=@MyNavigationManager.Uri" target="_blank">
+                                    <i class="fab fa-twitter" style="font-size:large"></i>
+                                </a>
+                                <a class="btn btn-light" href="https://www.facebook.com/sharer.php?u=@MyNavigationManager.Uri" target="_blank">
+                                    <i class="fab fa-facebook-f" style="font-size:large"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 mt-n3 mb-n3">
+            @((MarkupString)post.content)
+        </div>
+    </div>
+    <!--Комментарии-->
+    <AuthorizeView>
+        <Authorized>
+            <div class="card-body collapse" data-parent="#accordion1">
+                <form asp-controller="Home" asp-action="AddComment" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#comment_@post.ID">
+                    <div class="card-body p-1">
+                        <div class="input-group">
+                            <input name="postID" value="@post.ID" hidden />
+                            <input name="text" hidden>
+                            <input name="fake_text" type="text" class="form-control" placeholder="Напишите комментарий" />
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="submit" onclick="$(this).parent().parent().children().first().next().val($(this).parent().parent().children().first().next().next().val()); $(this).parent().parent().children().first().next().next().val('')">Добавить</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div id="comment_@post.ID" class="card-body p-3">
+                    <partial name="_comments" for="@post.comments" />
+                </div>
+            </div>
+        </Authorized>
+        <NotAuthorized>
+            <div class="card-body collapse" data-parent="#accordion1">
+                <div class="card-body p-1">
+                    <p class="card-text">Для добавления комментария необходимо <a class="btn-link" href='/Identity/Account/Register'>зарегистрироваться</a> или <a class="btn-link" href='/Identity/Account/Login'>войти</a> на сайт.</p>
+                </div>
+            </div>
+        </NotAuthorized>
+    </AuthorizeView>
+</div>
+
+@code {
+    [Parameter]
+    public post post { get; set; }
+}
