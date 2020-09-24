@@ -38,7 +38,8 @@ namespace blazorHramPosts
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<user, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders().AddDefaultUI();
+                .AddDefaultTokenProviders()
+                .AddDefaultUI();
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<user>>();
