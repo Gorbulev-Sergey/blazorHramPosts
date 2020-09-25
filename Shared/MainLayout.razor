@@ -1,12 +1,23 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="sidebar">
-    <NavMenu />
-    <LoginDisplay />
-</div>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-light navbar-toggleable-sm bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" href="~/">blazorHramPosts</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <LoginDisplay />
+                <NavMenu />
+            </div>
+        </div>
+    </nav>
+</header>
 
-<div class="main">
-    <div class="content px-4">
+<div class="container">
+    <main role="main" class="pb-3">
         @Body
-    </div>
+    </main>
 </div>

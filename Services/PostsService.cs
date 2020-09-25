@@ -10,7 +10,7 @@ namespace blazorHramPosts.Services
 {
     public interface IPostsService
     {
-        public IList<post> get();
+        public IList<post> posts();
         public ApplicationDbContext context { get; }
     }
 
@@ -26,7 +26,7 @@ namespace blazorHramPosts.Services
             get { return _context; }
         }
 
-        public IList<post> get()
+        public IList<post> posts()
         {
             return _context.posts.ToList();
         }
