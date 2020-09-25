@@ -17,6 +17,9 @@ using blazorHramPosts.Data;
 using blazorHramPosts.Models;
 using blazorHramPosts.Services;
 using blazorHramPosts.Areas.Identity;
+using AspNet.Security.OAuth.Vkontakte;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace blazorHramPosts
 {
@@ -43,7 +46,6 @@ namespace blazorHramPosts
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<user>>();
-            services.AddSingleton<WeatherForecastService>();
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
@@ -52,6 +54,14 @@ namespace blazorHramPosts
 
                     options.ClientId = "690639073976-4iho06or9f2nhcmh7astsan11lvvdgb9.apps.googleusercontent.com";
                     options.ClientSecret = "EldG9O1qTxFzACRdFgkag-PZ";
+                })
+                .AddVkontakte(options =>
+                {
+                    IConfigurationSection vkAuthNSection =
+                        Configuration.GetSection("Authentication:Vk");
+
+                    options.ClientId = "7609221";
+                    options.ClientSecret = "QGB9vZBryvr7gpEXB7vK";
                 });
             services.AddTransient<IPostsService, PostsServices>();
         }

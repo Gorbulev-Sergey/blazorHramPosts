@@ -1,12 +1,41 @@
 ﻿<AuthorizeView>
     <Authorized>
-        <a href="Identity/Account/Manage">Hello, @context.User.Identity.Name!</a>
-        <form method="post" action="Identity/Account/LogOut">
-            <button type="submit" class="nav-link btn btn-link">Log out</button>
-        </form>
+        <div class="@NavMenuCssClass  align-bottom" @onclick="ToggleNavMenu">
+            <ul class="nav flex-column">
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="Identity/Account/Manage" Match="NavLinkMatch.All">
+                        <span class="oi oi-person" aria-hidden="true"></span> @context.User.Identity.Name
+                    </NavLink>
+                    <NavLink class="nav-link" href="Identity/Account/LogOut">
+                        <span class="oi oi-fullscreen-exit" aria-hidden="true"></span> Выйти
+                    </NavLink>
+                </li>
+            </ul>
+        </div>
     </Authorized>
     <NotAuthorized>
-        <a href="Identity/Account/Register">Register</a>
-        <a href="Identity/Account/Login">Log in</a>
+        <div class="@NavMenuCssClass align-bottom" @onclick="ToggleNavMenu" Match="NavLinkMatch.All">
+            <ul class="nav flex-column">
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="Identity/Account/Register" Match="NavLinkMatch.All">
+                        <span class="oi oi-person" aria-hidden="true"></span> Зарегистрироваться
+                    </NavLink>
+                    <NavLink class="nav-link" href="Identity/Account/Login" Match="NavLinkMatch.All">
+                        <span class="oi oi-fullscreen-enter" aria-hidden="true"></span> Войти
+                    </NavLink>
+                </li>
+            </ul>
+        </div>
     </NotAuthorized>
 </AuthorizeView>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
