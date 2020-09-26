@@ -1,19 +1,13 @@
 ﻿@using blazorHramPosts.Models
 @inject NavigationManager MyNavigationManager
 
-<div class="card mb-4">
+<div class="card mb-4 shadow-sm">
     <!--Верхняя часть публикации-->
-    <div class="row no-gutters">
-        <!--Картинка публикации-->
-        @if (post.cover_image != null)
-        {
-            <div class="col-lg-5">
-                <img src="@post.cover_image" class="card-img" alt="...">
-            </div>
-        }
+    <div class="row no-gutters" style="background-color:rgba(0, 122, 204,.3)">
         <div class="col-lg d-flex flex-column">
             <div class="card-body mb-auto">
                 <!--Название публикаци-->
+                <h5 class="badge badge-light text-warning pl-2 pr-2 pb-1 pt-1">@post.type</h5>
                 <h5 class="card-title">@post.title</h5>
                 <!--Сокращённое содержимое-->
                 @((MarkupString)post.description)<br />
@@ -34,7 +28,7 @@
                         <Authorized>
                             <form class="d-inline-block" asp-controller="Home" asp-action="AddLike" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#like_@post.ID">
                                 <button id="like_@post.ID" class="btn btn-light align-self-center" type="submit">
-                                    <i class="far fa-heart text-danger font-weight-bold"></i>
+                                    <i class="far fa-heart text-dark font-weight-bold"></i>
                                 </button>
                                 <input name="postID" value="@post.ID" hidden />
                             </form>
@@ -45,7 +39,7 @@
                     <div class="dropup float-right ml-1">
                         <button class="btn btn-light align-self-center" data-toggle="dropdown"><i class="fas fa-share-alt"></i></button>
                         <div class="dropdown-menu dropdown-menu-right mb-2 p-0 border-0">
-                            <div class="btn-group">
+                            <div class="btn-group btn-warning">
                                 <a class="btn btn-light" href="https://vk.com/share.php?url=@MyNavigationManager.Uri" target="_blank">
                                     <i class="fab fa-vk" style="font-size:large"></i>
                                 </a>
@@ -64,6 +58,14 @@
                 </div>
             </div>
         </div>
+        <!--Картинка публикации-->
+        @if (post.cover_image != null)
+        {
+            <div class="col-lg-4">
+                <img src="@post.cover_image" class="card-img" alt="...">
+            </div>
+        }
+
     </div>
     <!--Комментарии-->
     <AuthorizeView>

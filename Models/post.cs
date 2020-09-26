@@ -15,7 +15,7 @@ namespace blazorHramPosts.Models
         {
             created = DateTime.Now;
             updated = new DateTime();
-            type = type.news;
+            type = type.новость;
             published = true;
             tags = new List<tag>();
             comments = new List<comment>();
