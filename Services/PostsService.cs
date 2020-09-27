@@ -1,5 +1,6 @@
 ﻿using blazorHramPosts.Data;
 using blazorHramPosts.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,8 @@ namespace blazorHramPosts.Services
 
         public IList<post> posts()
         {
-            return _context.posts.ToList();
+            var _posts=_context.posts.Include(p => p.comments).Include(p => p.likes).ToList();
+            return _posts;
         }
     }
 }

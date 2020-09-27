@@ -64,6 +64,8 @@ namespace blazorHramPosts
                     options.ClientSecret = "QGB9vZBryvr7gpEXB7vK";
                 });
             services.AddTransient<IPostsService, PostsServices>();
+            services.AddTransient<ICommentsService, CommentsService>();
+            services.AddTransient<ILikesService, LikesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

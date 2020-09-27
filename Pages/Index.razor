@@ -19,21 +19,23 @@
     }
 </style>
 
+
+
 <div class="d-flex justify-content-between align-items-center mb-3">
     @*Заголовок страницы*@
     <h5 class="mb-0" style="text-shadow:1px 1px 6px rgba(0,0,0,0.8)">ГЛАВНАЯ</h5>
     @*Навигация*@
-<ul class="nav nav-pills ml-3 justify-content-end" id="pills-tab">
-    <li class="nav-item">
-        <a class="nav-link text-dark active" data-toggle="pill" href="#pills-news">Объявления и новости</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" data-toggle="pill" href="#pills-articles">Статьи</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" data-toggle="pill" href="#pills-addons">Может быть интересно</a>
-    </li>
-</ul>
+    <ul class="nav nav-pills ml-3 justify-content-end" id="pills-tab">
+        <li class="nav-item">
+            <a class="nav-link text-dark active" data-toggle="pill" href="#pills-news">Объявления и новости</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" data-toggle="pill" href="#pills-articles">Статьи</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" data-toggle="pill" href="#pills-addons">Может быть интересно</a>
+        </li>
+    </ul>
 </div>
 
 <div class="tab-content" id="pills-tabContent">
@@ -65,7 +67,7 @@
             @foreach (var post in PostsService.posts().Where(p => p.type == type.видео).Reverse())
             {
                 <Post_video post="post"></Post_video>
-                
+
             }
         </div>
     </div>

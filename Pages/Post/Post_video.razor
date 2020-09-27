@@ -1,5 +1,7 @@
 ﻿@using blazorHramPosts.Models
+@inject AuthenticationStateProvider StateProvider
 @inject NavigationManager MyNavigationManager
+@inject blazorHramPosts.Services.ICommentsService CommentsService
 
 <div class="card mb-4 shadow">
     <!--Верхняя часть публикации-->
@@ -26,7 +28,7 @@
                             </form>
                         </Authorized>
                     </AuthorizeView>
-                    <button class="btn btn-light align-self-center" onclick="$(this).parent().parent().parent().parent().next().collapse('toggle')"><i class="far fa-comment-alt"></i></button>
+                    <button class="btn btn-light align-self-center" onclick="$(this).parent().parent().parent().parent().next().collapse('toggle')"><i class="far fa-comment-alt"></i>@post.comments.Count</button>
 
                     <div class="dropup float-right ml-1">
                         <button class="btn btn-light align-self-center" data-toggle="dropdown"><i class="fas fa-share-alt"></i></button>
@@ -55,30 +57,35 @@
         </div>
     </div>
     <!--Комментарии-->
-    <AuthorizeView>
+    <AuthorizeView Context="NewContext">
         <Authorized>
             <div class="card-body collapse" data-parent="#accordion">
-                <form asp-controller="Home" asp-action="AddComment" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#comment_@post.ID">
-                    <div class="card-body p-1">
+                <EditForm Model="@comment" OnValidSubmit="@HandleValidSubmit">
+                    <div class="card-body p-1 mb-3">
                         <div class="input-group">
-                            <input name="postID" value="@post.ID" hidden />
-                            <input name="text" hidden>
-                            <input name="fake_text" type="text" class="form-control" placeholder="Напишите комментарий" />
+                            <input name="text" type="text" @bind="comment.text" class="form-control" placeholder="Напишите комментарий" />
                             <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="submit" onclick="$(this).parent().parent().children().first().next().val($(this).parent().parent().children().first().next().next().val()); $(this).parent().parent().children().first().next().next().val('')">Добавить</button>
+                                <button class="btn btn-outline-secondary" type="submit">Добавить</button>
                             </div>
                         </div>
                     </div>
-                </form>
-                <div id="comment_@post.ID" class="card-body p-3">
-                    <partial name="_comments" for="@post.comments" />
-                </div>
+                </EditForm>
+                @foreach (comment комментарий in post.comments.Reverse())
+                {
+                    <p>
+                        <span class="badge badge-dark mr-2">
+                            <span class="badge badge-pill badge-light">@комментарий.created.ToShortDateString()</span>
+                            @комментарий.userName
+                        </span>
+                        @комментарий.text
+                    </p>
+                }
             </div>
         </Authorized>
         <NotAuthorized>
             <div class="card-body collapse" data-parent="#accordion">
                 <div class="card-body p-1">
-                    <p class="card-text">Для добавления комментария необходимо <a class="btn-link" href='/Identity/Account/Register'>зарегистрироваться</a> или <a class="btn-link" href='/Identity/Account/Login'>войти</a> на сайт.</p>
+                    <p class="card-text">Если желаете оставить комментарий <a class="btn-link" href='/Identity/Account/Register'>пройдите регистрацию на сайте</a> или <a class="btn-link" href='/Identity/Account/Login'>войдите на сайт</a>.</p>
                 </div>
             </div>
         </NotAuthorized>
@@ -88,4 +95,13 @@
 @code {
     [Parameter]
     public post post { get; set; }
+
+    private comment comment = new comment();
+    private async Task HandleValidSubmit()
+    {
+        comment.postID = post.ID;
+        comment.userName = (await StateProvider.GetAuthenticationStateAsync()).User.Identity.Name;
+        CommentsService.add(comment);
+    }
 }
+
