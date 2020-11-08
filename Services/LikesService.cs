@@ -1,5 +1,6 @@
 ﻿using blazorHramPosts.Data;
 using blazorHramPosts.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,43 +10,47 @@ namespace blazorHramPosts.Services
 {
     public interface ILikesService
     {
-        public IList<like> likes(int postId);
-        public ApplicationDbContext context();
-        public void add(like like);
-        public void delete(int likeID);
+        Task<List<like>> likes(int postId);
+        Task add(like like);
+        Task delete(int likeID);
     }
 
     public class LikesService : ILikesService
     {
-        ApplicationDbContext _context;
-        public LikesService(ApplicationDbContext context)
+        DbContextOptions<ApplicationDbContext> options;
+        public LikesService(DbContextOptions<ApplicationDbContext> options)
         {
-            _context = context;
+            this.options = options;
+        }
+        
+        public async Task<List<like>> likes(int postId)
+        {
+            using (var context=new ApplicationDbContext(options))
+            {
+                return await context.likes.Where(l => l.postID == postId).ToListAsync();
+            }                
         }
 
-        public void add(like like)
+        public async Task add(like like)
         {
-            if (like != null)
+            using (var context = new ApplicationDbContext(options))
             {
-                _context.likes.Add(like);
-                _context.SaveChanges();
+                if (like != null)
+                {
+                    context.likes.Add(like);
+                    await context.SaveChangesAsync();
+                }
+            }                       
+        }
+        public async Task delete(int likeID)
+        {
+            using (var context = new ApplicationDbContext(options))
+            {
+                context.likes.Remove(context.likes.FirstOrDefault(like=>like.ID==likeID));
+                await context.SaveChangesAsync();                
             }            
         }
 
-        public ApplicationDbContext context()
-        {
-            return _context;
-        }
-
-        public void delete(int likeID)
-        {
-            _context.likes.Remove(_context.likes.FirstOrDefault(like=>like.ID==likeID));
-            _context.SaveChanges();
-        }
-
-        public IList<like> likes(int postId)
-        {
-            return _context.likes.Where(l => l.postID == postId).ToList();
-        }
+        
     }
 }

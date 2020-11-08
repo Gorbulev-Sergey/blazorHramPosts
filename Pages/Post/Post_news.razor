@@ -7,7 +7,7 @@
 @inject UserManager<user> userManager;
 
 
-<div class="card mb-4 shadow-sm">
+<div class="card mb-4 border-0">
     <!--Верхняя часть публикации-->
     <div class="row no-gutters">
         <div class="col-lg d-flex flex-column">
@@ -121,7 +121,9 @@
         comment.postID = post.ID;
         comment.userId = user.Id;
         comment.userName = user.UserName;
-        CommentsService.add(comment);
+        await CommentsService.add(comment);
+        post.comments.Add(comment);
+        comment = new comment();
     }
 
     private like like = new like();
@@ -131,6 +133,6 @@
 
         like.postID = post.ID;
         like.userId = user.Id;
-        LikeService.add(like);
+        await LikeService.add(like);
     }
 }

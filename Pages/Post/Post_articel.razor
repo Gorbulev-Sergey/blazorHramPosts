@@ -116,7 +116,7 @@
     {
         comment.postID = post.ID;
         comment.userName = (await StateProvider.GetAuthenticationStateAsync()).User.Identity.Name;
-        CommentsService.add(comment);
+        await CommentsService.add(comment);
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using blazorHramPosts.Data;
 using blazorHramPosts.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,38 +10,35 @@ namespace blazorHramPosts.Services
 {
     public interface ICommentsService
     {
-        public IList<comment> comments(int postId);
+        Task<List<comment>> comments(int postId);
 
-        public ApplicationDbContext context();
-
-        public void add(comment comment);
+        Task add(comment comment);
     }
 
     public class CommentsService : ICommentsService
     {
-        ApplicationDbContext _context;
-        public CommentsService(ApplicationDbContext context)
+        DbContextOptions<ApplicationDbContext> options;
+        public CommentsService(DbContextOptions<ApplicationDbContext> options)
         {
-            _context = context;
+            this.options = options;
         }
-
-        public void add(comment comment)
+        public async Task<List<comment>> comments(int postId)
         {
-            if (comment!=null)
+            using (var context = new ApplicationDbContext(options))
             {
-                _context.comments.Add(comment);
-                _context.SaveChangesAsync();
+                return await context.comments.Where(p => p.postID == postId).ToListAsync();
+            }            
+        }
+        public async Task add(comment comment)
+        {
+            using (var context = new ApplicationDbContext(options))
+            {
+                if (comment != null)
+                {
+                    context.comments.Add(comment);
+                    await context.SaveChangesAsync();
+                }
             }
-        }
-
-        public IList<comment> comments(int postId)
-        {
-            return _context.comments.Where(p => p.postID == postId).ToList();
-        }
-
-        public ApplicationDbContext context()
-        {
-            return _context;
-        }
+        }             
     }
 }

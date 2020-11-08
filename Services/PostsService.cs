@@ -1,36 +1,29 @@
 ﻿using blazorHramPosts.Data;
 using blazorHramPosts.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Providers.Entities;
 
 namespace blazorHramPosts.Services
 {
     public interface IPostsService
     {
-        public IList<post> posts();
-        public ApplicationDbContext context { get; }
+        Task<List<post>> posts();
     }
 
     public class PostsServices : IPostsService
     {
-        ApplicationDbContext _context;
-        public PostsServices(ApplicationDbContext context)
+        DbContextOptions<ApplicationDbContext> options;
+        public PostsServices(DbContextOptions<ApplicationDbContext> options)
         {
-            _context = context;
+            this.options = options;
         }
-
-        public ApplicationDbContext context {
-            get { return _context; }
-        }
-
-        public IList<post> posts()
+        public async Task<List<post>> posts()
         {
-            var _posts=_context.posts.Include(p => p.comments).Include(p => p.likes).ToList();
-            return _posts;
+            using (var context = new ApplicationDbContext(options))
+            {
+                return await context.posts.Include(p => p.comments).Include(p => p.likes).ToListAsync();
+            }
         }
     }
 }
