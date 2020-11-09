@@ -10,6 +10,13 @@
 <div class="card mb-4 border-0">
     <!--Верхняя часть публикации-->
     <div class="row no-gutters">
+        <!--Картинка публикации-->
+        @if (post.cover_image != null)
+        {
+            <div class="col-lg-4">
+                <img class="img-fluid" src="@post.cover_image" />
+            </div>
+        }
         <div class="col-lg d-flex flex-column">
             <div class="card-body mb-auto">
                 <!--Название публикаци-->
@@ -19,26 +26,19 @@
                 <small class="text-muted">Опубликовано @post.updated.ToShortDateString()</small>
             </div>
             <div class="p-3 d-flex justify-content-between">
-                <div>
-                    <!--Кнопка подробнее-->
-                    @if (!string.IsNullOrEmpty(post.content))
-                    {
-                        <button class="btn btn-light align-self-center" onclick="$(this).parent().parent().parent().parent().parent().children().last().collapse('toggle')"><i class="fas fa-angle-double-down"></i>&nbsp;&nbsp;Подробнее</button>
-
-                    }
-                </div>
+                <!--Кнопка подробнее-->
+                @if (!string.IsNullOrEmpty(post.content))
+                {
+                <button class="btn btn-light align-self-center" onclick="$(this).parent().parent().parent().parent().parent().children().last().collapse('toggle')">Подробнее <i class="fas fa-angle-double-right"></i></button>
+                }
                 <div>
                     <!--Кнопки комментарии, нравится, поделиться-->
                     <AuthorizeView Context="NewContext">
                         <Authorized>
-                            <EditForm Model="@like" OnValidSubmit="@likeValidSubmit">
-                                <button class="btn btn-light align-self-center" type="submit">
-                                    <i class="far fa-heart text-dark"></i>
-                                </button>
-                            </EditForm>
+                            <button class="btn btn-light d-inline-block align-self-center" @onclick="()=>добавить_лайк(like)"><i class="far fa-heart text-dark"></i></button>
                         </Authorized>
                     </AuthorizeView>
-                    <button class="btn btn-light align-self-center" onclick="$(this).parent().parent().parent().parent().next().collapse('toggle')"><i class="far fa-comment-alt"></i> @post.comments.Count</button>
+                    <button class="btn btn-light d-inline-block align-self-center" onclick="$(this).parent().parent().parent().parent().next().collapse('toggle')"><i class="far fa-comment-alt"></i> @post.comments.Count</button>
                     <div class="dropup float-right ml-1">
                         <button class="btn btn-light align-self-center" data-toggle="dropdown"><i class="fas fa-share-alt"></i></button>
                         <div class="dropdown-menu dropdown-menu-right mb-2 p-0 border-0">
@@ -61,13 +61,6 @@
                 </div>
             </div>
         </div>
-        <!--Картинка публикации-->
-        @if (post.cover_image != null)
-        {
-            <div class="col-lg-4">
-                <img src="@post.cover_image" class="card-img" alt="...">
-            </div>
-        }
     </div>
     <!--Комментарии-->
     <AuthorizeView Context="NewContext">
@@ -134,5 +127,10 @@
         like.postID = post.ID;
         like.userId = user.Id;
         await LikeService.add(like);
+    }
+
+    async Task добавить_лайк(like like)
+    {
+
     }
 }

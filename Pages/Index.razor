@@ -42,11 +42,11 @@
     @*Основные*@
     <div id="pills-news" class="tab-pane fade show active">
         <div id="accordion" class="mt-3">
-            @foreach (var post in posts.Where(p => p.type == type.объявление).Reverse())
+            @foreach (var post in posts.Where(p => p.type == type.Объявление).Reverse())
             {
                 <Post_notification post="post"></Post_notification>
             }
-            @foreach (var post in posts.Where(p => p.type == type.новость).Reverse())
+            @foreach (var post in posts.Where(p => p.type == type.Новость).Reverse())
             {
                 <Post_news post="post"></Post_news>
             }
@@ -55,7 +55,7 @@
     @*Статьи*@
     <div id="pills-articles" class="tab-pane fade">
         <div id="accordion" class="mt-3">
-            @foreach (var post in posts.Where(p => p.type == type.статья).Reverse())
+            @foreach (var post in posts.Where(p => p.type == type.Статья).Reverse())
             {
                 <Post_articel post="post"></Post_articel>
             }
@@ -64,7 +64,7 @@
     @*Может быть интересно*@
     <div id="pills-addons" class="tab-pane fade">
         <div id="accordion" class="mt-3">
-            @foreach (var post in posts.Where(p => p.type == type.видео).Reverse())
+            @foreach (var post in posts.Where(p => p.type == type.Видео).Reverse())
             {
                 <Post_video post="post"></Post_video>
             }

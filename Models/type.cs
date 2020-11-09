@@ -8,13 +8,13 @@ namespace blazorHramPosts.Models
 {
     public enum type
     {
-        [Display(Name = "Новость")]
-        новость,
-        [Display(Name = "Cтатья")]
-        статья,
-        [Display(Name = "Видео")]
-        видео,
         [Display(Name = "Объявление")]
-        объявление
+        Объявление,
+        [Display(Name = "Новость")]
+        Новость,
+        [Display(Name = "Cтатья")]
+        Статья,
+        [Display(Name = "Видео")]
+        Видео
     }
 }

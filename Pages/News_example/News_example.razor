@@ -1,0 +1,168 @@
+﻿@page "/news_example"
+@using blazorHramPosts.Models
+@inject blazorHramPosts.Services.IPostsService PostsService
+
+
+<div class="row mb-3 row-cols-1 row-cols-md-2 row-cols-xl-3">
+    @foreach (var post in posts)
+    {
+    <div class="col mb-4">
+        <div class="card bg-dark text-white h-100">
+            <div class="card-header">
+                <h5 class="card-title">@post.title</h5>
+                <div class="small text-muted">@post.created.ToShortDateString()</div>
+            </div>
+            @if (!String.IsNullOrEmpty(post.cover_image))
+            {
+                <img src="@post.cover_image" class="img-fluid" alt="...">
+            }
+            <div class="card-body">
+                <p class="card-text">@((MarkupString)post.description)</p>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-sm btn-dark">Подробнее</button>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+
+<div class="row mb-3 row-cols-1 row-cols-md-2" hidden>
+    <div class="col mb-4">
+        <div class="card bg-dark text-white h-100">
+            <div class="card-body">
+                <h5 class="card-title">Название карточки</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <img src="https://kidteam.ru/wp-content/uploads/2018/07/kto-mozhet-byt-krestnymi-roditelyami-dlya-malchikov-10.jpg" class="card-img-bottom" alt="...">
+        </div>
+    </div>
+    <div class="col mb-4">
+        <div class="card bg-dark text-white h-100">
+            <div class="card-body">
+                <h5 class="card-title">Название карточки</h5>
+                <p class="card-text">This is a short card.</p>
+            </div>
+            <img src="https://sun9-6.userapi.com/F5nh6AUg9dtl6ZUYI1RGpTklSIzXCdhmHvujxA/3KTk5C49Oro.jpg" class="card-img-bottom" alt="...">
+        </div>
+    </div>
+    <div class="col mb-4">
+        <div class="card bg-dark text-white h-100">
+            <div class="card-body">
+                <h5 class="card-title">Название карточки</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+            </div>
+            <img src="https://znamkaluga.ru/wp-content/uploads/2020/03/0835.jpg" class="card-img-bottom" alt="...">
+        </div>
+    </div>
+    <div class="col mb-4">
+        <div class="card bg-dark text-white h-100">
+            <div class="card-body">
+                <h5 class="card-title">Название карточки</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            <img src="https://sun1-98.userapi.com/rW9fL0a9vrq81C6Vvq3nYllKcAjN4M_-dflEWQ/1GriWkGAcLo.jpg" class="card-img-bottom" alt="...">
+        </div>
+    </div>
+</div>
+
+    <div class="row" hidden>
+        <div class="col-md-6">
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Крещение</h5>
+                    <p class="card-text">
+                        8 октября в 17:00 на нашу небольшую колокольню был вывешен новый колокол, пожертвованный прихожанином нашего храма Игорем.
+                    </p>
+                    <img class="card-img-bottom" src="https://kidteam.ru/wp-content/uploads/2018/07/kto-mozhet-byt-krestnymi-roditelyami-dlya-malchikov-10.jpg" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Установка нового колокола</h5>
+                    <p class="card-text">
+                        8 октября в 17:00 на нашу небольшую колокольню был вывешен новый колокол, пожертвованный прихожанином нашего храма Игорем.
+                    </p>
+                    <img class="card-img-bottom" src="https://sun9-6.userapi.com/F5nh6AUg9dtl6ZUYI1RGpTklSIzXCdhmHvujxA/3KTk5C49Oro.jpg" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">В воскресенье 11 октября в нашем храме состоялось архиерейское богослужение</h5>
+                    <p class="card-text">
+                        Богослужение возглавил епископ Иосиф, викарий Калужской епархии (недавно рукоположенный во епископа).
+                        Большое спасибо всем тем, кто пришел в этот день в храм, всем, кто занимался организацией встречи, молился, пел, готовил обед, был в этот день вместе с нами.
+                    </p>
+                    <img class="card-img-bottom" src="https://znamkaluga.ru/wp-content/uploads/2020/03/0835.jpg" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3" hidden>
+        <div class="card text-white bg-dark mb-3">
+            <div class="row no-gutters">
+                <div class="col-5">
+                    <div class="card-body">
+                        <img class="card-img" src="https://kidteam.ru/wp-content/uploads/2018/07/kto-mozhet-byt-krestnymi-roditelyami-dlya-malchikov-10.jpg" />
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div class="card-body">
+                        <h5 class="card-title">Крещение</h5>
+                        <p class="card-text">
+                            8 октября в 17:00 на нашу небольшую колокольню был вывешен новый колокол, пожертвованный прихожанином нашего храма Игорем.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card text-white bg-dark mb-3">
+            <div class="row no-gutters">
+                <div class="col-5">
+                    <div class="card-body">
+                        <img class="card-img" src="https://sun9-6.userapi.com/F5nh6AUg9dtl6ZUYI1RGpTklSIzXCdhmHvujxA/3KTk5C49Oro.jpg" />
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div class="card-body">
+                        <h5 class="card-title">Крещение</h5>
+                        <p class="card-text">
+                            8 октября в 17:00 на нашу небольшую колокольню был вывешен новый колокол, пожертвованный прихожанином нашего храма Игорем.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card text-white bg-dark mb-3">
+            <div class="row no-gutters">
+                <div class="col-5">
+                    <div class="card-body">
+                        <img class="card-img" src="https://znamkaluga.ru/wp-content/uploads/2020/03/0835.jpg" />
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div class="card-body">
+                        <h5 class="card-title">Крещение</h5>
+                        <p class="card-text">
+                            Богослужение возглавил епископ Иосиф, викарий Калужской епархии (недавно рукоположенный во епископа).
+                            Большое спасибо всем тем, кто пришел в этот день в храм, всем, кто занимался организацией встречи, молился, пел, готовил обед, был в этот день вместе с нами.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @code {
+        List<post> posts = new List<post>();
+
+        protected override async Task OnInitializedAsync()
+        {
+            posts = await PostsService.posts();
+        }
+    }
