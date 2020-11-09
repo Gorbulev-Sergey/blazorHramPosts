@@ -4,7 +4,7 @@
 
 <div class="card text-white bg-dark">
     <div class="card-header">
-        <h5 class="card-title">@post.title</h5>
+        <h4 class="card-title">@post.title</h4>
         <div class="small text-muted">@post.created.ToShortDateString()</div>
     </div>
     <div class="card-body">
@@ -17,12 +17,21 @@
             @((MarkupString)post.content)
         }
     </div>
-    @if (!String.IsNullOrEmpty(post.cover_image))
+    @if (String.IsNullOrEmpty(post.content)&&!String.IsNullOrEmpty(post.cover_image))
     {
         <img src="@post.cover_image" class="img-fluid" alt="...">
     }
-    <div class="card-footer">
+    <div class="card-footer d-flex align-items-center justify-content-between">
         <button class="btn btn-dark" @onclick="назад">Назад</button>
+        <div>
+            <AuthorizeView>
+                <Authorized>
+                    <button class="btn btn-dark" title="Комментарии"><i class="far fa-comment-alt"></i></button>
+                    <button class="btn btn-dark" title="Лайки"><i class="far fa-heart"></i></button>
+                </Authorized>
+            </AuthorizeView>
+            <button class="btn btn-dark" title="Поделиться"><i class="fas fa-share-alt"></i></button>
+        </div>
     </div>
 </div>
 
