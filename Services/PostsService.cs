@@ -9,6 +9,7 @@ namespace blazorHramPosts.Services
     public interface IPostsService
     {
         Task<List<post>> posts();
+        Task<post> post(int id);
     }
 
     public class PostsServices : IPostsService
@@ -23,6 +24,14 @@ namespace blazorHramPosts.Services
             using (var context = new ApplicationDbContext(options))
             {
                 return await context.posts.Include(p => p.comments).Include(p => p.likes).ToListAsync();
+            }
+        }
+
+        public async Task<post> post(int id)
+        {
+            using (var context = new ApplicationDbContext(options))
+            {
+                return await context.posts.Include(p => p.comments).Include(p => p.likes).FirstOrDefaultAsync(p=>p.ID==id);
             }
         }
     }
