@@ -1,44 +1,53 @@
-﻿@page "/news_example"
+﻿@page "/news_example1"
+
 @using blazorHramPosts.Models
 @inject blazorHramPosts.Services.IPostsService PostsService
 @inject NavigationManager NavigationManager
 
-    <div class="mb-3 d-flex justify-content-between" hidden>
-        <div>
-            <button class="btn btn-dark">Новости и объявления</button>
-            <button class="btn btn-secondary">Видео</button>
+<div class="mb-3">
+            <a class="btn btn-secondary active" href="#news" data-toggle="list">Новости и объявления</a>
+        
+            <a class="btn btn-secondary" href="#video" data-toggle="list">Видео</a>
+        
+            <a class="btn btn-secondary" href="#tample" data-toggle="list">О храме</a>
+        
+            <a class="btn btn-secondary" href="">О Таинствах</a>
+        
+            <a class="btn btn-secondary" href="">Для клироса</a>
         </div>
-        <div>
-            <button class="btn btn-secondary">О храме</button>
-            <button class="btn btn-secondary">О Таинствах</button>
-            <button class="btn btn-secondary">Для клироса</button>
+
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="news">
+        <div class="row mb-3 row-cols-1 row-cols-md-2 row-cols-xl-3">
+            @foreach (var post in posts.Where(p => p.type == type.Объявление))
+            {
+                <Post post="post"></Post>
+            }
+            @foreach (var post in posts.Where(p => p.type == type.Новость))
+            {
+                <Post post="post"></Post>
+            }
         </div>
     </div>
-    
-
-<div class="row mb-3 row-cols-1 row-cols-md-2 row-cols-xl-3">
-    @foreach (var post in posts)
-    {
-        <div class="col mb-4">
-            <div class="card bg-dark text-white h-100">
-                <div class="card-header">
-                    <h4 class="card-title">@post.title</h4>
-                    <div class="small text-muted">@post.created.ToShortDateString()</div>
-                </div>
-                @if (!String.IsNullOrEmpty(post.cover_image))
-                {
-                    <img src="@post.cover_image" class="img-fluid" alt="...">
-                }
-                <div class="card-body">
-                    <p class="card-text">@((MarkupString)post.description)</p>
-                </div>
-                <div class="card-footer">
-                    <button class="btn btn-sm btn-dark" @onclick="()=>подробнее(post.ID)">Подробнее</button>
-                </div>
-            </div>
+    <div class="tab-pane fade" id="video">
+        <div class="row mb-3 row-cols-1 row-cols-md-2 row-cols-xl-3">
+            @foreach (var post in posts.Where(p => p.type == type.Видео))
+            {
+                <Post post="post"></Post>
+            }
         </div>
-    }
+    </div>
+    <div class="tab-pane fade" id="tample">
+        <div class="row mb-3 row-cols-1 row-cols-md-2 row-cols-xl-3">
+            @foreach (var post in posts.Where(p => p.type == type.Статья))
+            {
+                <Post post="post"></Post>
+            }
+        </div>
+    </div>
 </div>
+
+
 
 @code {
     List<post> posts = new List<post>();

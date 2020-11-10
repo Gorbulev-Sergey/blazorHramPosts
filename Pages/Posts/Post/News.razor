@@ -1,0 +1,23 @@
+﻿@layout Posts
+@page  "/posts/news"
+@inject IPostsService PostsService
+
+<div class="row mb-3 row-cols-1 row-cols-md-2 row-cols-xl-3">
+    @foreach (var post in posts.Where(p => p.type == type.Объявление))
+    {
+        <Post post="post"></Post>
+    }
+    @foreach (var post in posts.Where(p => p.type == type.Новость))
+    {
+        <Post post="post"></Post>
+    }
+</div>
+
+@code {
+    public List<post> posts = new List<post>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        posts = await PostsService.posts();
+    }
+}
