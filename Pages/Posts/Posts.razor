@@ -18,7 +18,7 @@
 
 <div class="tab-content">
     <div class="tab-pane fade show active" id="news">
-        <div class="row mb-3 row-cols-1 row-cols-xl-2">
+        <div class="row mb-3 row-cols-1 row-cols-md-2 row-cols-xl-3">
             @foreach (var post in posts.Where(p => p.type == type.Объявление))
             {
                 <Post post="post"></Post>
@@ -41,7 +41,7 @@
     </div>
     <div class="tab-pane fade" id="o_hrame">
         <div class="row mb-3 row-cols-1 row-cols-md-2 row-cols-xl-3">
-            @foreach (var post in posts.Where(p => p.type == type.Статья))
+            @foreach (var post in posts.Where(p => p.tags.Contains(p.tags.FirstOrDefault(t => t.text == "о храме"))))
             {
                 <Post post="post"></Post>
             }
@@ -49,7 +49,7 @@
     </div>
     <div class="tab-pane fade" id="o_tainstvah">
         <div class="row mb-3 row-cols-1 row-cols-md-2 row-cols-xl-3">
-            @foreach (var post in posts.Where(p => p.type == type.Статья))
+            @foreach (var post in posts.Where(p => p.tags.Contains(p.tags.FirstOrDefault(t=>t.text== "о таинствах"))))
             {
                 <Post post="post"></Post>
             }
@@ -57,7 +57,7 @@
     </div>
     <div class="tab-pane fade" id="dlya_klirosa">
         <div class="row mb-3 row-cols-1 row-cols-md-2 row-cols-xl-3">
-            @foreach (var post in posts.Where(p => p.type == type.Статья))
+            @foreach (var post in posts.Where(p => p.tags.Contains(p.tags.FirstOrDefault(t => t.text == "для клироса"))))
             {
                 <Post post="post"></Post>
             }

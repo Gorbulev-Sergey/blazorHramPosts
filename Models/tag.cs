@@ -24,6 +24,6 @@ namespace blazorHramPosts.Models
         [DataType(DataType.Date)]
         public DateTime updated { get; set; }
 
-        public int postID { get; set; }
+        public int? postID { get; set; }
     }
 }
