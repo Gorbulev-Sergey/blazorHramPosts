@@ -19,9 +19,12 @@
         <div class="card-body">
             <p class="card-text">@((MarkupString)post.description)</p>
         </div>
-        <div class="card-footer">
-            <button class="btn btn-sm btn-dark" @onclick="()=>подробнее(post.ID)">Подробнее</button>
-        </div>
+        @if (!String.IsNullOrEmpty(post.content))
+        {
+            <div class="card-footer">
+                <button class="btn btn-sm btn-dark" @onclick="()=>подробнее(post.ID)">Подробнее</button>
+            </div>
+        }
     </div>
 </div>
 
