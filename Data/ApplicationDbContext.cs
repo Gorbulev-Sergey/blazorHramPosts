@@ -18,11 +18,13 @@ namespace blazorHramPosts.Data
             likes = Set<like>();
             tags = Set<tag>();
             imageAlbums = Set<imageAlbum>();
+            schedule = Set<schedule_string>();
         }
         public DbSet<post> posts { get; set; }
         public DbSet<comment> comments { get; set; }
         public DbSet<like> likes { get; set; }
         public DbSet<tag> tags { get; set; }
         public DbSet<imageAlbum> imageAlbums { get; set; }
+        public DbSet<schedule_string> schedule { get; set; }
     }
 }

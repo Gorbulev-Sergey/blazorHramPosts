@@ -1,0 +1,11 @@
+﻿@page "/schedule"
+@using System.Globalization
+
+<h3 class="mb-3">Расписание богослужений на @CultureInfo.GetCultureInfo("ru-RU").DateTimeFormat.GetMonthName(DateTime.Now.Month).ToLower() @DateTime.Now.Year года</h3>
+
+<Schedule date="DateTime.Now"></Schedule>
+
+
+
+@code {
+}
