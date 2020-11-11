@@ -49,7 +49,7 @@
     </div>
     <div class="tab-pane fade" id="o_tainstvah">
         <div class="row mb-3 row-cols-1 row-cols-md-2 row-cols-xl-3">
-            @foreach (var post in posts.Where(p => p.tags.Contains(p.tags.FirstOrDefault(t=>t.text== "о таинствах"))))
+            @foreach (var post in posts.Where(p => p.tags.Contains(p.tags.FirstOrDefault(t => t.text == "о таинствах"))))
             {
                 <Post post="post"></Post>
             }
@@ -69,8 +69,8 @@
 @code {
     List<post> posts = new List<post>();
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        posts = await PostsService.posts();
+        posts = PostsService.posts();
     }
 }

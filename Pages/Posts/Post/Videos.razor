@@ -12,8 +12,8 @@
 @code {
     public List<post> posts = new List<post>();
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        posts = (await PostsService.posts()).Where(p => p.type == type.Статья).ToList();
+        posts = PostsService.posts().Where(p => p.type == type.Статья).ToList();
     }
 }

@@ -75,9 +75,9 @@
 @code{
     List<post> posts = new List<post>();
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        posts = await PostsService.posts();
+        posts = PostsService.posts();
     }
 }
 

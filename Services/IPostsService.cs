@@ -9,7 +9,8 @@ namespace blazorHramPosts.Services
 {
     public interface IPostsService
     {
-        Task<List<post>> posts();
+        List<post> posts();
+        Task<List<post>> postsAsync();        
         Task<post> post(int id);
     }
 
@@ -20,11 +21,20 @@ namespace blazorHramPosts.Services
         {
             this.options = options;
         }
-        public async Task<List<post>> posts()
+        public List<post> posts()
         {
             using (var context = new ApplicationDbContext(options))
             {
-                return await context.posts.Include(p => p.comments).Include(p => p.likes).Include(p=>p.tags).ToListAsync();
+                var posts = context.posts.Include(p => p.comments).Include(p => p.likes).Include(p => p.tags).ToList();
+                return posts.OrderBy(p => p.created).Reverse().ToList();
+            }
+        }
+        public async Task<List<post>> postsAsync()
+        {
+            using (var context = new ApplicationDbContext(options))
+            {
+                var posts = await context.posts.Include(p => p.comments).Include(p => p.likes).Include(p => p.tags).ToListAsync();
+                return posts.OrderBy(p=>p.created).Reverse().ToList();
             }
         }
 
@@ -34,6 +44,6 @@ namespace blazorHramPosts.Services
             {
                 return await context.posts.Include(p => p.comments).Include(p => p.likes).FirstOrDefaultAsync(p=>p.ID==id);
             }
-        }
+        }        
     }
 }
