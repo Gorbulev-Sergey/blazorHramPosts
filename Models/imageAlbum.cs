@@ -18,7 +18,7 @@ namespace blazorHramPosts.Models
             created = DateTime.Now;
             updated = new DateTime();
         }
-        public int ID { get; set; }
+        public int ID { get; set; }        
         [Display(Name = "Название")]
         public string title { get; set; }
         [Display(Name = "Краткое описание")]

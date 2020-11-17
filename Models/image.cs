@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace blazorHramPosts.Models
 {
-    [Table(name: "images")]
+    [Table(name:"images")]
     public class image
     {
         public image()

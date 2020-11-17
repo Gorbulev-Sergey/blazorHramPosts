@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace blazorHramPosts.Models
 {
-    [Table(name: "comments")]
+    [Table(name:"comments")]
     public class comment
     {
         public comment()

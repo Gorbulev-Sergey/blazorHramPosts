@@ -15,6 +15,7 @@ namespace blazorHramPosts.Models
             imageAlbums = new List<imageAlbum>();
             comments = new List<comment>();
             likes = new List<like>();
+            schedule = new List<schedule_string>();
         }
         [PersonalData, Display(Name = "Публикации")]
         public virtual IList<post> posts { get; set; }
@@ -24,5 +25,7 @@ namespace blazorHramPosts.Models
         public virtual IList<comment> comments { get; set; }
         [PersonalData, Display(Name = "Лайки")]
         public virtual IList<like> likes { get; set; }
+        [PersonalData, Display(Name = "Расписания")]
+        public virtual IList<schedule_string> schedule { get; set; }
     }
 }

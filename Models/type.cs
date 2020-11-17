@@ -16,5 +16,6 @@ namespace blazorHramPosts.Models
         Статья,
         [Display(Name = "Видео")]
         Видео
+        
     }
 }

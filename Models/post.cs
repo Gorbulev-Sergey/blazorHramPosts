@@ -11,20 +11,8 @@ namespace blazorHramPosts.Models
     [Table(name: "posts")]
     public class post
     {
-        public post()
-        {
-            created = DateTime.Now;
-            updated = new DateTime();
-            type = type.Новость;
-            published = true;
-            tags = new List<tag>();
-            comments = new List<comment>();
-            likes = new List<like>();
-            images = new List<image>();
-            videos = new List<video>();
-        }
         public int ID { get; set; }
-        [Display(Name = "Название")]
+        [Required(ErrorMessage ="Добавьте, пожалуйста, название публикации"), Display(Name ="Название")]
         public string title { get; set; }
         [Display(Name = "Url обложки"), DataType(DataType.ImageUrl)]
         public string cover_image { get; set; }
@@ -37,21 +25,21 @@ namespace blazorHramPosts.Models
         [Display(Name = "Тип")]
         public type type { get; set; }
         [Display(Name = "Опубликовать")]
-        public bool published { get; set; }
+        public bool published { get; set; } = false;
         [Display(Name = "Дата создания"), DataType(DataType.Date)]
-        public DateTime created { get; set; }
+        public DateTime created { get; set; } = DateTime.Now;
         [Display(Name = "Дата обновления"), DataType(DataType.Date)]
-        public DateTime updated { get; set; }
+        public DateTime updated { get; set; } = DateTime.Now;
         [Display(Name = "Теги")]
-        public virtual IList<tag> tags { get; set; }
+        public virtual IList<tag> tags { get; set; } = new List<tag>();
         [Display(Name = "Комментарии")]
-        public virtual IList<comment> comments { get; set; }
+        public virtual IList<comment> comments { get; set; } = new List<comment>();
         [Display(Name = "Нравится")]
-        public virtual IList<like> likes { get; set; }
+        public virtual IList<like> likes { get; set; } = new List<like>();
         [Display(Name = "Картинки")]
-        public virtual IList<image> images { get; set; }
+        public virtual IList<image> images { get; set; } = new List<image>();
         [Display(Name = "Видео")]
-        public virtual IList<video> videos { get; set; }
+        public virtual IList<video> videos { get; set; } = new List<video>();
 
         public string userId { get; set; }
     }
