@@ -31,7 +31,8 @@ namespace blazorHramPosts.Models
         [Display(Name = "Дата обновления"), DataType(DataType.Date)]
         public DateTime updated { get; set; } = DateTime.Now;
         [Display(Name = "Теги")]
-        public virtual IList<tag> tags { get; set; } = new List<tag>();
+        //public virtual List<tag> tags { get; set; } = new List<tag>();
+        public List<posttag> posttags { get; set; } = new List<posttag>();
         [Display(Name = "Комментарии")]
         public virtual IList<comment> comments { get; set; } = new List<comment>();
         [Display(Name = "Нравится")]

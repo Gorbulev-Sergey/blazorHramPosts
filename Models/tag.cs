@@ -19,6 +19,7 @@ namespace blazorHramPosts.Models
         [DataType(DataType.Date)]
         public DateTime updated { get; set; }= new DateTime();
                 
-        public virtual IList<post> posts { get; set; } = new List<post>();
+        //public virtual List<post> posts { get; set; } = new List<post>();
+        public List<posttag> posttags { get; set; } = new List<posttag>();
     }
 }

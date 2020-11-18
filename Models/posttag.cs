@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace blazorHramPosts.Models
 {
-    //[Table(name: "poststags")]
-    public class posttag1
+    [Table(name: "posttag")]
+    public class posttag
     {
         [Key]
-        public int postID { get; set; }
+        public int postsID { get; set; }
         public post post { get; set; } = new post();
 
         [Key]
-        public int tagID { get; set; }
+        public int tagsID { get; set; }
         public tag tag { get; set; } = new tag();
     }
 }
