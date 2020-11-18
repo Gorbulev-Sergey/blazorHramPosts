@@ -8,24 +8,23 @@ using System.Threading.Tasks;
 
 namespace blazorHramPosts.Services
 {
-    interface IPostTagsService
+    interface ITagsService
     {
-        List<posttag> posttags();
+        List<tag> tags();
     }
 
-    public class PostTagsService : IPostTagsService
+    public class TagsService : ITagsService
     {
         DbContextOptions<ApplicationDbContext> options;
-        public PostTagsService(DbContextOptions<ApplicationDbContext> options)
+        public TagsService(DbContextOptions<ApplicationDbContext> options)
         {
             this.options = options;
         }
-        public List<posttag> posttags()
+        public List<tag> tags()
         {
             using (var context = new ApplicationDbContext(options))
             {
-                var pt=context.posttags.Include(p=>p.post).ToList();
-                return pt;
+                return context.tags.ToList();
             }
         }
     }
