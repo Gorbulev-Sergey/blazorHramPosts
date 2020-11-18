@@ -1,0 +1,9 @@
+﻿@media (max-width: 420px){
+    .скрыть{
+        display:none;
+    }
+}
+
+body>center{
+    display:none;
+}
