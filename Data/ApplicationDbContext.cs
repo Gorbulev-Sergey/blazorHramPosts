@@ -20,6 +20,7 @@ namespace blazorHramPosts.Data
         public DbSet<tag> tags { get; set; }
         public DbSet<imageAlbum> imageAlbums { get; set; }
         public DbSet<schedule_string> schedule { get; set; }
+        public DbSet<posttag> posttags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

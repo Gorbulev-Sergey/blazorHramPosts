@@ -1,6 +1,7 @@
 ﻿@page "/"
 @page "/posts"
 @inject IPostsService PostsService
+@inject IPostTagsService PostTagsService  
 
 <div class="mb-1">
     <ul class="nav nav-pills d-flex justify-content-between">
@@ -41,26 +42,26 @@
     </div>
     <div class="tab-pane fade" id="o_hrame">
         <div class="row mb-3 row-cols-1 row-cols-md-2 row-cols-xl-2">
-            @foreach (var post in posts.Where(p => p.tags.Contains(p.tags.FirstOrDefault(t => t.text == "о храме"))))
+            @foreach (var post in posttags.Where(p => p.tag.text == "о храме"))
             {
-                <Post post="post"></Post>
+                <Post post="post.post"></Post>
             }
         </div>
     </div>
     <div class="tab-pane fade" id="o_tainstvah">
         <div class="row mb-3 row-cols-1 row-cols-md-2 row-cols-xl-3">
-            @foreach (var post in posts.Where(p => p.tags.Contains(p.tags.FirstOrDefault(t => t.text == "о таинствах"))))
+            @foreach (var post in posttags.Where(p => p.tag.text == "о таинствах"))
             {
-                <Post post="post"></Post>
+                <Post post="post.post"></Post>
             }
         </div>
     </div>
     <div class="tab-pane fade" id="dlya_klirosa">
         <div class="row mb-3 row-cols-1 row-cols-md-2 row-cols-xl-3">
-            @foreach (var post in posts.Where(p => p.tags.Contains(p.tags.FirstOrDefault(t => t.text == "для клироса"))))
+            @*@foreach (var post in posts.Where(p => p.tags.Contains(p.tags.FirstOrDefault(t => t.text == "для клироса"))))
             {
                 <Post post="post"></Post>
-            }
+            }*@
         </div>
     </div>
 </div>
@@ -68,9 +69,11 @@
 
 @code {
     List<post> posts = new List<post>();
+    List<posttag> posttags = new List<posttag>();
 
     protected override void OnInitialized()
     {
         posts = PostsService.posts();
+        posttags = PostTagsService.posttags();
     }
 }

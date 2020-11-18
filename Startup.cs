@@ -68,6 +68,7 @@ namespace blazorHramPosts
             services.AddTransient<ILikesService, LikesService>();
             services.AddTransient<ISchedulesService, ScheduleService>();
             services.AddTransient<IPhotosService, PhotosService>();
+            services.AddTransient<IPostTagsService, PostTagsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
