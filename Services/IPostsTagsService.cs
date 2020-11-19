@@ -24,7 +24,7 @@ namespace blazorHramPosts.Services
         {
             using (var context = new ApplicationDbContext(options))
             {
-                var pt=context.posttags.Include(p=>p.post).ToList();
+                var pt=context.posttags.Include(p=>p.post).Where(p => p.post.published == true).ToList();
                 return pt;
             }
         }
